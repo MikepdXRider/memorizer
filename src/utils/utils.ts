@@ -13,7 +13,7 @@ export function createCorrectAnswers(count: number) {
 }
 
 
-export function checkAnswer(userGuess: Array<number>, correctAnswers: Array<number>, clicks: number ){
-    if (userGuess[clicks] === correctAnswers[clicks]) return true;
+export function checkAnswer(userGuesses: Array<number>, correctAnswers: Array<number>, index: number ){
+    if (userGuesses[index] === correctAnswers[index]) return true;
     return false;
 }

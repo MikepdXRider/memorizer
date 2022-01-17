@@ -77,33 +77,144 @@ export default function Game() {
 
 
     function handleClick(e:any){
-        const { value }:{value: number} = e.target;
-        // ❗ State is behind within the scope of this fn. 
-        setUserGuesses(prevState => [...prevState, value]);
+        const { value }:{value: string} = e.target;
+        const valueNum = Number(value);
+        // ✔ State is behind within the scope of this fn. 
+        // The setter function in a hook queues an update, but doesn't not immediately update it. We can resolve this by keeping setter function calls here, then move the rest of the dependent functionality into a useEffect hook. 
+        // https://stackoverflow.com/questions/28773839/react-form-onchange-setstate-one-step-behind
+        setUserGuesses(prevState => [...prevState, valueNum]);
         setClicks(prevState => prevState + 1);
-        const isCorrectGuess = checkAnswer(userGuesses, correctAnswers, clicks - 1);
-
-        // ❗ Not working. Need to resolve state issue above before continuing. 
-        // if (!isCorrectGuess) setLoss(true);
-        // console.log(userGuesses.length, correctAnswers.length);
-        // if (userGuesses.length === correctAnswers.length) console.log('Nice Job, you beat this level!');
     }
+    
+    // ❗ Automatically trigger a game fail/win because there will be no userGuesses to compare to the correctAnswers when it is generated.
+    useEffect(() => {
+        console.log('userArr: ' + userGuesses.length, 'correctArr: ' + correctAnswers.length, 'userClicks: ' + clicks);
+        
+        // 💂‍♀️
+        if (!userGuesses.length) return; 
 
-
+        const isCorrectGuess = checkAnswer(userGuesses, correctAnswers, clicks - 1);
+        
+        if (!isCorrectGuess) setLoss(true);
+        if (userGuesses.length === correctAnswers.length) setWin(true);
+        
+    }, [userGuesses, clicks, correctAnswers])
 
 
     return (
-        <div>
-            {/* Could this be dynamically rendered? */}
-            <button name='0' id='0' value={0} onClick={handleClick} disabled={win || loss ||clicks > correctAnswers.length - 1} className={buttonStyles[0]}>1</button>
-            <button name='1' id='1' value={1} onClick={handleClick} disabled={win || loss ||clicks > correctAnswers.length - 1} className={buttonStyles[1]}>2</button>
-            <button name='2' id='2' value={2} onClick={handleClick} disabled={win || loss ||clicks > correctAnswers.length - 1} className={buttonStyles[2]}>3</button>
-            <button name='3' id='3' value={3} onClick={handleClick} disabled={win || loss ||clicks > correctAnswers.length - 1} className={buttonStyles[3]}>4</button>
-            <button name='4' id='4' value={4} onClick={handleClick} disabled={win || loss ||clicks > correctAnswers.length - 1} className={buttonStyles[4]}>5</button>
-            <button name='5' id='5' value={5} onClick={handleClick} disabled={win || loss ||clicks > correctAnswers.length - 1} className={buttonStyles[5]}>6</button>
-            <button name='6' id='6' value={6} onClick={handleClick} disabled={win || loss ||clicks > correctAnswers.length - 1} className={buttonStyles[6]}>7</button>
-            <button name='7' id='7' value={7} onClick={handleClick} disabled={win || loss ||clicks > correctAnswers.length - 1} className={buttonStyles[7]}>8</button>
-            <button name='8' id='8' value={8} onClick={handleClick} disabled={win || loss ||clicks > correctAnswers.length - 1} className={buttonStyles[8]}>9</button>
-        </div>
+        <>
+            {
+                win && <h1>You won!</h1>
+            }
+            
+            {
+                loss && <h1>You Lose!</h1>
+            }
+            
+            <div>
+                {/* 🌟 Could this be dynamically rendered? */}
+
+
+                <button 
+                name='0' 
+                id='0' 
+                value={0} 
+                onClick={handleClick} 
+                disabled={win || loss || clicks === level} 
+                className={buttonStyles[0]}
+                >
+                    1
+                </button>
+
+                <button 
+                name='1' 
+                id='1' 
+                value={1} 
+                onClick={handleClick} 
+                disabled={win || loss || clicks === level} 
+                className={buttonStyles[1]}
+                >
+                    2
+                </button>
+
+                <button 
+                name='2' 
+                id='2' 
+                value={2} 
+                onClick={handleClick} 
+                disabled={win || loss || clicks === level} 
+                className={buttonStyles[2]}
+                >
+                    3
+                </button>
+
+                <button 
+                name='3' 
+                id='3' 
+                value={3} 
+                onClick={handleClick} 
+                disabled={win || loss || clicks === level} 
+                className={buttonStyles[3]}
+                >
+                    4
+                </button>
+
+                <button 
+                name='4' 
+                id='4' 
+                value={4} 
+                onClick={handleClick} 
+                disabled={win || loss || clicks === level} 
+                className={buttonStyles[4]}
+                >
+                    5
+                </button>
+
+                <button 
+                name='5' 
+                id='5' 
+                value={5} 
+                onClick={handleClick} 
+                disabled={win || loss || clicks === level} 
+                className={buttonStyles[5]}
+                >
+                    6
+                </button>
+
+                <button 
+                name='6' 
+                id='6' 
+                value={6} 
+                onClick={handleClick} 
+                disabled={win || loss || clicks === level} 
+                className={buttonStyles[6]}
+                >
+                    7
+                </button>
+
+                <button 
+                name='7' 
+                id='7' 
+                value={7} 
+                onClick={handleClick} 
+                disabled={win || loss || clicks === level} 
+                className={buttonStyles[7]}
+                >
+                    8
+                </button>
+
+                <button 
+                name='8' 
+                id='8' 
+                value={8} 
+                onClick={handleClick} 
+                disabled={win || loss || clicks === level} 
+                className={buttonStyles[8]}
+                >
+                    9
+                </button>
+
+            </div>
+        </>    
     )
 }
