@@ -16,11 +16,11 @@
 // Game prompts user if win/loss round.
 // Game resets if player losses.
 // Game has start button that begins the game/starts the round.
-// 
+// If game is current giving hints, disable buttons.
 // 
 // 
 
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { createCorrectAnswers, checkAnswer } from '../utils/utils';
 import '../App.css';
 
@@ -33,7 +33,6 @@ export default function Game() {
     const [buttonStyles, setButtonStyles] = useState(['none', 'none', 'none', 'none', 'none', 'none', 'none', 'none', 'none'])
     const [win, setWin] = useState(false);
     const [loss, setLoss] = useState(false);
-    
     
     useEffect(() => {
         const arr = createCorrectAnswers(level);
@@ -79,7 +78,7 @@ export default function Game() {
     function handleClick(e:any){
         const { value }:{value: string} = e.target;
         const valueNum = Number(value);
-        // ✔ State is behind within the scope of this fn. 
+        // ✔ Solved: State is behind within the scope of this fn. 
         // The setter function in a hook queues an update, but doesn't not immediately update it. We can resolve this by keeping setter function calls here, then move the rest of the dependent functionality into a useEffect hook. 
         // https://stackoverflow.com/questions/28773839/react-form-onchange-setstate-one-step-behind
         setUserGuesses(prevState => [...prevState, valueNum]);
@@ -102,7 +101,7 @@ export default function Game() {
 
 
     return (
-        <>
+        <main>
             {
                 win && <h1>You won!</h1>
             }
@@ -117,8 +116,9 @@ export default function Game() {
                 {
                     buttonStyles.map((button, index) => 
                         <button 
-                            name='0' 
-                            id='0' 
+                            key={index}
+                            name={`${index}`} 
+                            id={`${index}`}
                             value={index} 
                             onClick={handleClick} 
                             disabled={win || loss || clicks === level} 
@@ -130,6 +130,6 @@ export default function Game() {
                 }
                 
             </div>
-        </>    
+        </main>    
     )
 }
