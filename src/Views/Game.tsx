@@ -114,106 +114,21 @@ export default function Game() {
             <div>
                 {/* 🌟 Could this be dynamically rendered? */}
 
-
-                <button 
-                name='0' 
-                id='0' 
-                value={0} 
-                onClick={handleClick} 
-                disabled={win || loss || clicks === level} 
-                className={buttonStyles[0]}
-                >
-                    1
-                </button>
-
-                <button 
-                name='1' 
-                id='1' 
-                value={1} 
-                onClick={handleClick} 
-                disabled={win || loss || clicks === level} 
-                className={buttonStyles[1]}
-                >
-                    2
-                </button>
-
-                <button 
-                name='2' 
-                id='2' 
-                value={2} 
-                onClick={handleClick} 
-                disabled={win || loss || clicks === level} 
-                className={buttonStyles[2]}
-                >
-                    3
-                </button>
-
-                <button 
-                name='3' 
-                id='3' 
-                value={3} 
-                onClick={handleClick} 
-                disabled={win || loss || clicks === level} 
-                className={buttonStyles[3]}
-                >
-                    4
-                </button>
-
-                <button 
-                name='4' 
-                id='4' 
-                value={4} 
-                onClick={handleClick} 
-                disabled={win || loss || clicks === level} 
-                className={buttonStyles[4]}
-                >
-                    5
-                </button>
-
-                <button 
-                name='5' 
-                id='5' 
-                value={5} 
-                onClick={handleClick} 
-                disabled={win || loss || clicks === level} 
-                className={buttonStyles[5]}
-                >
-                    6
-                </button>
-
-                <button 
-                name='6' 
-                id='6' 
-                value={6} 
-                onClick={handleClick} 
-                disabled={win || loss || clicks === level} 
-                className={buttonStyles[6]}
-                >
-                    7
-                </button>
-
-                <button 
-                name='7' 
-                id='7' 
-                value={7} 
-                onClick={handleClick} 
-                disabled={win || loss || clicks === level} 
-                className={buttonStyles[7]}
-                >
-                    8
-                </button>
-
-                <button 
-                name='8' 
-                id='8' 
-                value={8} 
-                onClick={handleClick} 
-                disabled={win || loss || clicks === level} 
-                className={buttonStyles[8]}
-                >
-                    9
-                </button>
-
+                {
+                    buttonStyles.map((button, index) => 
+                        <button 
+                            name='0' 
+                            id='0' 
+                            value={index} 
+                            onClick={handleClick} 
+                            disabled={win || loss || clicks === level} 
+                            className={buttonStyles[index]}
+                        >
+                            {index + 1}
+                        </button>
+                    )
+                }
+                
             </div>
         </>    
     )
