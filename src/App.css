@@ -1,18 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+html {
+  /* background: linear-gradient(45deg, #FC466B 0%, #3F5EFB 100%) no-repeat; */
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  animation: gradient 15s ease infinite;
+  background-size: 400% 400%;
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .none {
-  font-family: serif;
+  font-family: 'Signika Negative', sans-serif;
 }
 
 .focus {
   animation: click 1s backwards;
+  font-family: 'Signika Negative', sans-serif;
 }
 
 @keyframes click {
   50% {
-    background-color: greenyellow;
+    background-color: rgba(255, 255, 255, 0.45);
   }
 }
 
-div {
+.game-buttons-container {
   width: 310px;
   height: 310px;
   display: flex;
@@ -21,18 +59,51 @@ div {
   align-items: center;
 }
 
-button {
+.start-round-button {
+  font-size: 2rem;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 1000;
+  /* background-color: black; */
+  color: paleturquoise;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.game-button {
   height: 100px;
   width: 100px;
-  font-size: x-large;
-  font-family: serif;
+  font-size: 2rem;
+  font-family: 'Nunito', sans-serif;
   font-weight: 1000;
-  background-color: black;
-  color: greenyellow;
+  /* background-color: black; */
+  color: paleturquoise;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 button:active {
-  background-color: greenyellow;
+  background-color: rgb(102, 102, 102);
+}
+
+.game-board-container {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
 }
 
 #root {

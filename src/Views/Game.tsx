@@ -128,14 +128,6 @@ export default function Game() {
 
   return (
     <main>
-      {isGameInPlay ? (
-        <p>Good luck!</p>
-      ) : (
-        <button onClick={() => setIsGameInPlay((prevState) => !prevState)}>
-          Start round {level}!
-        </button>
-      )}
-      {win && <h1>You won!</h1>}
       {loss && (
         <section className="modal-background">
           <div>
@@ -148,20 +140,33 @@ export default function Game() {
           </div>
         </section>
       )}
-      <div>
-        {buttonStyles.map((button, index) => (
+      <div className="game-board-container">
+        {isGameInPlay ? (
+          <p>Good luck!</p>
+        ) : (
           <button
-            key={index}
-            name={`${index}`}
-            id={`${index}`}
-            value={index}
-            onClick={handleClick}
-            disabled={!isGameInPlay || win || loss || clicks === level}
-            className={buttonStyles[index]}
+            onClick={() => setIsGameInPlay((prevState) => !prevState)}
+            className="start-round-button"
           >
-            {index + 1}
+            Start round {level}!
           </button>
-        ))}
+        )}
+        {win && <h1>You won!</h1>}
+        <div className="game-buttons-container">
+          {buttonStyles.map((button, index) => (
+            <button
+              key={index}
+              name={`${index}`}
+              id={`${index}`}
+              value={index}
+              onClick={handleClick}
+              disabled={!isGameInPlay || win || loss || clicks === level}
+              className={`${buttonStyles[index]} ${'game-button'}`}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
       </div>
     </main>
   );
